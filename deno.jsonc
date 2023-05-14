@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+      "sky/": "https://cdn.skypack.dev/",
+      "deno-std/" :"https://deno.land/std@0.187.0/"
+  }
+}
