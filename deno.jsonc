@@ -1,6 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "photo-sort": "deno run --allow-write --allow-env --allow-read main.ts",
+    "photo-sort-copy": "deno run --allow-env --allow-write --allow-read main.ts",
+    "photo-sort-move": "deno run --allow-env --allow-write --allow-read main.ts --operation move"
   },
   "imports": {
       "sky/": "https://cdn.skypack.dev/",

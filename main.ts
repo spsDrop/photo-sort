@@ -4,7 +4,7 @@ import { DefaultPattern, args } from "./src/args.ts";
 import { collectFiles } from "./src/collectFiles.ts";
 import { getCreationData } from "./src/getCreationDate.ts";
 
-const filesToProcess = await collectFiles(args.sourcePath, args.subdirs === "true");
+const filesToProcess = await collectFiles(args.sourcePath, args.recursive === "true");
 
 console.log(`Processing file information for ${filesToProcess.length} file(s)`)
 const fileData = await Promise.all(
@@ -19,7 +19,9 @@ const operations = fileData.map((data) => ({
   from: data?.filePath,
 }));
 
-console.log(`Moving ${filesToProcess.length} file(s)`)
+const move = args.operation === 'move';
+
+console.log(`${move ? 'Moving' : 'Copying'} ${filesToProcess.length} file(s)`)
 operations.forEach((operation, i) => {
   if (i % 100 === 0) {
     console.log(`Progress ${Math.floor(i/filesToProcess.length * 100)}%`)
@@ -31,6 +33,10 @@ operations.forEach((operation, i) => {
     } catch (e) {
       Deno.mkdirSync(dir, { recursive: true });
     }
-    Deno.renameSync(operation.from, operation.to);
+    if (move) {
+      Deno.renameSync(operation.from, operation.to);
+    } else {
+      Deno.copyFileSync(operation.from, operation.to);
+    }
   }
 });

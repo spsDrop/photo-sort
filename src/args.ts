@@ -10,7 +10,8 @@ interface UserArguments {
   sourcePath: string;
   targetPath: string;
   pattern: string;
-  subdirs: string;
+  recursive: string;
+  operation: string;
 }
 
 export const DefaultPattern = "{yyyy}/{mm} {m3m}/{fileName}";
@@ -22,5 +23,6 @@ export const args: UserArguments =
     .describe("targetPath", "Target directory of photos")
     .demandOption(["targetPath"])
     .describe("pattern", `Pattern for output files. Default ${DefaultPattern}`)
-    .describe("subdirs", "Process subdirectories")
+    .describe("recursive", "Process sub-directories true/false. Default false")
+    .describe("operation", "Operation to perform on found files copy/move. Default copy")
     .argv;

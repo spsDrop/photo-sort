@@ -1,6 +1,6 @@
 import * as path from "deno-std/path/mod.ts";
 
-export async function collectFiles(dir: string, subdirs: boolean) {
+export async function collectFiles(dir: string, recursive: boolean) {
     let files: string[] = [];
     for await (const fileOrFolder of Deno.readDir(dir)) {
       if (
@@ -8,8 +8,8 @@ export async function collectFiles(dir: string, subdirs: boolean) {
       ) {
         files.push(path.join(dir, fileOrFolder.name));
       }
-      if (fileOrFolder.isDirectory && subdirs) {
-        const subDirFiles = await collectFiles(path.join(dir, fileOrFolder.name), subdirs);
+      if (fileOrFolder.isDirectory && recursive) {
+        const subDirFiles = await collectFiles(path.join(dir, fileOrFolder.name), recursive);
         files = files.concat(subDirFiles);
       }
     }
