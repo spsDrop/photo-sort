@@ -2,7 +2,10 @@
   "tasks": {
     "photo-sort": "deno run --allow-write --allow-env --allow-read main.ts",
     "photo-sort-copy": "deno run --allow-env --allow-write --allow-read main.ts",
-    "photo-sort-move": "deno run --allow-env --allow-write --allow-read main.ts --operation move"
+    "photo-sort-move": "deno run --allow-env --allow-write --allow-read main.ts --operation move",
+    "build": "deno compile --allow-env --allow-write --allow-read main.ts",
+    "build-nix": "deno task build --output builds/photo-sort --target x86_64-unknown-linux-gnu",
+    "build-windows": "deno task build --output builds/photo-sort.exe --target x86_64-pc-windows-msvc"
   },
   "imports": {
       "sky/": "https://cdn.skypack.dev/",
